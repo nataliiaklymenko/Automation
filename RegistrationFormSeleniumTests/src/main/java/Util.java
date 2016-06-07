@@ -1,26 +1,23 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 /**
  * Created by nako on 29/04/2016.
  */
 public class Util {
-    static WebDriver driver;
+    static WebDriver driver = BaseTest.getDriver();
     static String baseUrl = "http://localhost:8080/registrationform/";
     static String validUserId = "mngr35696";
     static String validUserPassword = "sAgUseh";
 
-    public static WebDriver launchBrowser() {
-        driver = new FirefoxDriver();
-        return driver;
-    }
-
-    public void goToPage(String pageUrl) {
+    public static void goToPage(String pageUrl) {
         driver.get(pageUrl);
     }
 
-    public boolean verifyCurrentPage(String expectedPageTitle, String actualPageTitle) {
+    public static boolean verifyCurrentPage(String expectedPageTitle, String actualPageTitle) {
         return (actualPageTitle.contentEquals(expectedPageTitle));
     }
 

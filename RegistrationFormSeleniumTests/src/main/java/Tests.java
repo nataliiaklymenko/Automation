@@ -7,25 +7,10 @@ import org.testng.annotations.Test;
 /**
  * Created by nako on 29/04/2016.
  */
-
-public class Tests {
-
-    private WebDriver driver;
-    Util init = new Util();
-
-    @BeforeClass
-    public void setUp() {
-        driver = Util.launchBrowser();
-    }
-
+public class Tests extends BaseTest{
     @Test
     public void testSuccessfulLogin() {
-        init.goToPage(Util.baseUrl);
-        Assert.assertTrue(init.verifyCurrentPage(RegistrationFormPage.REGISTRATION_FORM_PAGE_TITLE, driver.getTitle()));
-    }
-
-    @AfterClass
-    public void tearDrop() {
-        init.closeBrowser();
+        Util.goToPage(Util.baseUrl);
+        Assert.assertTrue(Util.verifyCurrentPage(RegistrationFormPage.REGISTRATION_FORM_PAGE_TITLE, driver.getTitle()));
     }
 }
