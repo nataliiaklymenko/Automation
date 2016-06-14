@@ -8,10 +8,8 @@ import org.openqa.selenium.firefox.FirefoxProfile;
  * Created by nako on 29/04/2016.
  */
 public class Util {
-    static WebDriver driver = BaseTest.getDriver();
-    static String baseUrl = "http://localhost:8080/registrationform/";
-    static String validUserId = "mngr35696";
-    static String validUserPassword = "sAgUseh";
+    private static WebDriver driver = BaseTest.getDriver();
+    static String baseUrl = "http://localhost:83/registrationform/";
 
     public static void goToPage(String pageUrl) {
         driver.get(pageUrl);
@@ -21,13 +19,12 @@ public class Util {
         return (actualPageTitle.contentEquals(expectedPageTitle));
     }
 
-    public void inputValueIntoField(String valueForInput) {
-        driver.findElement(By.name("uid")).sendKeys(valueForInput);
-        driver.findElement(By.name("password")).sendKeys(validUserPassword);
+    public void inputValueIntoField(String elementPath, String valueForInput) {
+        driver.findElement(By.xpath(elementPath)).sendKeys(valueForInput);
     }
 
-    public void pressButton() {
-        driver.findElement(By.name("btnLogin")).click();
+    public void pressButton(String elementPath) {
+        driver.findElement(By.xpath(elementPath)).click();
     }
 
     public void closeBrowser() {
