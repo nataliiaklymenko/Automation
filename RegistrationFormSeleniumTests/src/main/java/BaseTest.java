@@ -49,15 +49,19 @@ public class BaseTest {
                 options.setUseCleanSession(true);
                 setDriver(new SafariDriver(options));
                 break;
-            default: // chome driver by default
+            case Chrome:
                 System.setProperty("webdriver.chrome.driver", driverPath + "\\src\\main\\resources\\drivers\\chromedriver.exe");
                 setDriver(new ChromeDriver());
                 break;
+            default:
+                //TODO:define default action
         }
     }
 
     @AfterClass
-    public void QuitDriver() {
+    public static void QuitDriver() {
+        if (driver == null) return;
         driver.quit();
+        setDriver(null);
     }
 }
