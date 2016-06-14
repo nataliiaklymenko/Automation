@@ -1,6 +1,4 @@
-import com.thoughtworks.selenium.DefaultSelenium;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -11,15 +9,13 @@ import org.openqa.selenium.safari.SafariOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-import java.io.File;
-
 /**
  * Created by Argentum on 6/5/2016.
  */
 public class BaseTest {
     public enum Browsers {Chrome, IE, Firefox, Safari}
 
-    public Browsers browserType = Browsers.Safari;
+    public Browsers browserType = Browsers.Chrome;
     public static WebDriver driver;
 
     public static WebDriver getDriver() {
@@ -31,7 +27,7 @@ public class BaseTest {
     }
 
     @BeforeClass
-    public void Init() {
+    public void WebDriverInit() {
         String driverPath = System.getProperty("user.dir");
         switch (browserType) {
             case IE:
@@ -54,11 +50,10 @@ public class BaseTest {
                 setDriver(new SafariDriver(options));
                 break;
             default: // chome driver by default
-                System.setProperty("webdriver.chrome.driver", "\\src\\main\\resources\\drivers\\chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", driverPath + "\\src\\main\\resources\\drivers\\chromedriver.exe");
                 setDriver(new ChromeDriver());
                 break;
         }
-        driver.navigate().to(Util.baseUrl);
     }
 
     @AfterClass
