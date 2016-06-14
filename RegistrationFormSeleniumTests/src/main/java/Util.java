@@ -31,7 +31,7 @@ public class Util {
         driver.findElement(By.xpath(elementPath)).click();
     }
 
-    public void closeBrowser() {
+    public static void closeBrowser() {
         driver.close();
     }
 
