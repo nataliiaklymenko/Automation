@@ -1,20 +1,34 @@
+import org.openqa.selenium.WebDriver;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  * Created by nako on 29/04/2016.
  */
-public class RegistrationFormPage extends PageFactory {
+class RegistrationFormPage extends PageFactory implements IRegistrationPage {
 
-    public static String REGISTRATION_FORM_PAGE_TITLE = "Rule Financial Registration Form";
-    public static String GFT_LOGO = "";
-    public static String FIRST_NAME_FIELD = "";
-    public static String LAST_NAME_FIELD = "";
-    public static String EMAIL_FIELD = "";
-    public static String REPEAT_EMAIL_FIELD = "";
-    public static String JAVA_QUESTION_CATEGORY = "";
-    public static String SQL_QUESTION_CATEGORY = "";
-    public static String NET_QUESTION_CATEGORY = "";
-    public static String AGREEMENT_CHECKBOX = "";
-    public static String AGREEMENT_TEXT = "";
-    public static String TERMS_AND_CONDITIONS_LINK = "";
-    public static String SAVE_BUTTON = "";
-    public static String RESET_BUTTON = "";
+    private static Properties pageObjects = new Properties(System.getProperties());
+    private static final String Path_OR = System.getProperty("user.dir") + "\\src\\main\\resources\\RegistrationForm.properties";
+    private static final String Path_TestData = System.getProperty("user.dir") + "\\src\\main\\resources\\TestCases\\TestCases.xlsx";
+
+    public Properties getProperties() {
+        FileInputStream fileStream = null;
+        try {
+            fileStream = new FileInputStream(Path_OR);
+            pageObjects.load(fileStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return pageObjects;
+    }
+
+    public void inputValue(String object, String value) {
+        inputValueIntoField(object, value);
+    }
+
+    public void click(String object) {
+        clickOnElement(object);
+    }
 }

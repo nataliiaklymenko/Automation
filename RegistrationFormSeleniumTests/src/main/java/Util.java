@@ -19,13 +19,11 @@ public class Util {
         driver.get(pageUrl);
     }
 
-    public static boolean verifyCurrentPage(String expectedPageTitle, String actualPageTitle) {
+    public static boolean verifyCurrentPageTitle(String expectedPageTitle, String actualPageTitle) {
         return (actualPageTitle.contentEquals(expectedPageTitle));
     }
 
-    public void inputValueIntoField(String elementPath, String valueForInput) {
-        driver.findElement(By.xpath(elementPath)).sendKeys(valueForInput);
-    }
+
 
     public void pressButton(String elementPath) {
         driver.findElement(By.xpath(elementPath)).click();
