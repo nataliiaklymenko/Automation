@@ -7,22 +7,26 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+
+import java.lang.reflect.Method;
 
 /**
- * Created by Argentum on 6/5/2016.
+ * Created by nako on 6/5/2016.
  */
 public class BaseTest {
-    public enum Browsers {Chrome, IE, Firefox, Safari}
+    private enum Browsers {Chrome, IE, Firefox, Safari}
 
-    public Browsers browserType = Browsers.Chrome;
-    public static WebDriver driver;
+    private Browsers browserType = Browsers.Chrome;
+    static WebDriver driver;
 
-    public static WebDriver getDriver() {
+    static WebDriver getDriver() {
         return driver;
     }
 
-    public static void setDriver(WebDriver webDriver) {
+    private static void setDriver(WebDriver webDriver) {
         driver = webDriver;
     }
 
@@ -63,5 +67,15 @@ public class BaseTest {
         if (driver == null) return;
         driver.quit();
         setDriver(null);
+    }
+
+    @BeforeMethod
+    public static void startCase(Method method){
+        Log.startTestCase(method.getName());
+    }
+
+    @AfterMethod
+    public static void endCase(Method method){
+        Log.endTestCase(method.getName());
     }
 }

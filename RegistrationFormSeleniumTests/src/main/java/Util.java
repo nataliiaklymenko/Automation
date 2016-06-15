@@ -10,16 +10,16 @@ import java.util.Properties;
 /**
  * Created by nako on 29/04/2016.
  */
-public class Util {
+class Util {
     private static Logger logger = Logger.getLogger("Util");
     private static WebDriver driver = BaseTest.getDriver();
     static String baseUrl = "http://localhost:83/registrationform/";
 
-    public static void goToPage(String pageUrl) {
+    static void goToPage(String pageUrl) {
         driver.get(pageUrl);
     }
 
-    public static boolean verifyCurrentPageTitle(String expectedPageTitle, String actualPageTitle) {
+    static boolean verifyCurrentPageTitle(String expectedPageTitle, String actualPageTitle) {
         return (actualPageTitle.contentEquals(expectedPageTitle));
     }
 
