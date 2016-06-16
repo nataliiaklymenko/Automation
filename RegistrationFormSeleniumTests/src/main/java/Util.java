@@ -30,11 +30,7 @@ class Util {
 
     public static WebElement waitForElement(String xpath, int timeOut) {
         WebDriverWait waiting = new WebDriverWait(driver, timeOut);
-       return waiting.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
-    }
-
-    public void pressButton(String elementPath) {
-        driver.findElement(By.xpath(elementPath)).click();
+        return waiting.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
     }
 
     public static void closeBrowser() {
