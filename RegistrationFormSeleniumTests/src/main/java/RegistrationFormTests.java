@@ -7,33 +7,41 @@ import java.util.Properties;
 /**
  * Created by nako on 29/04/2016.
  */
-public class RegistrationFormTests extends BaseTest{
+public class RegistrationFormTests extends BaseTest {
     private static Logger logger = Logger.getLogger("RegistrationFormTests");
-    private IRegistrationPage iRegistrationPage = new RegistrationFormPage();
-    private Properties pageObjects = iRegistrationPage.getProperties();
+    private static final String Path_OR = System.getProperty("user.dir") + "\\src\\main\\resources\\RegistrationForm.properties";
+    private Properties pageObjects = RegistrationFormPage.getProperties(Path_OR);
 
-    @Test(enabled = false)
+    @Test
     public void testRegistrationFormLoading() {
         Util.goToPage(Util.baseUrl);
-        Assert.assertTrue(Util.verifyCurrentPageTitle(pageObjects.getProperty("title_RegistrationForm"), driver.getTitle()));
+        Assert.assertTrue(Util.verifyCurrentPageTitle(RegistrationFormPage.REGISTRATION_FORM_PAGE_TITLE, driver.getTitle()));
     }
 
     @Test
     public void testRegistrationFormSave() {
         Util.goToPage(Util.baseUrl);
-        iRegistrationPage.inputValue(pageObjects.getProperty("field_FirstName"), "test first name");
-        iRegistrationPage.inputValue(pageObjects.getProperty("field_LastName"), "test last name");
-        iRegistrationPage.inputValue(pageObjects.getProperty("field_Email"), "ts@ts.ts");
-        iRegistrationPage.inputValue(pageObjects.getProperty("field_RepeatEmail"), "ts@ts.ts");
-        iRegistrationPage.click(pageObjects.getProperty("btn_JavaQuestionCategory"));
-//        iRegistrationPage.click(pageObjects.getProperty("rbtn_Answer").replace("#", "-3"));//TODO: add array with questions and answers
-//        iRegistrationPage.click(pageObjects.getProperty("checkbox_Agreement"));
-//        iRegistrationPage.click(pageObjects.getProperty("btn_Save"));
+        RegistrationFormPage.inputValueIntoField(RegistrationFormPage.FIRST_NAME_FIELD, "test first name");
+        RegistrationFormPage.inputValueIntoField(RegistrationFormPage.LAST_NAME_FIELD, "test last name");
+        RegistrationFormPage.inputValueIntoField(RegistrationFormPage.EMAIL_FIELD, "ts@ts.ts");
+        RegistrationFormPage.inputValueIntoField(RegistrationFormPage.REPEAT_EMAIL_FIELD, "ts@ts.ts");
+        RegistrationFormPage.clickOnElement(RegistrationFormPage.JAVA_QUESTION_CATEGORY);
+//        iRegistrationPage.click(RegistrationFormPage.getProperty("rbtn_Answer").replace("#", "-3"));//TODO: add array with questions and answers
+//        iRegistrationPage.click(RegistrationFormPage.getProperty("checkbox_Agreement"));
+//                RegistrationFormPage.clickOnElement(RegistrationFormPage.RESET_BUTTON);
 //        Assert.assertTrue(false);
     }
 
-    @Test(enabled = false)
+    @Test
     public void testRegistrationFormReset() {
-        Assert.assertTrue(false);
+        Util.goToPage(Util.baseUrl);
+        RegistrationFormPage.inputValueIntoField(RegistrationFormPage.FIRST_NAME_FIELD, "test first name");
+        RegistrationFormPage.inputValueIntoField(RegistrationFormPage.LAST_NAME_FIELD, "test last name");
+        RegistrationFormPage.inputValueIntoField(RegistrationFormPage.EMAIL_FIELD, "ts@ts.ts");
+        RegistrationFormPage.inputValueIntoField(RegistrationFormPage.REPEAT_EMAIL_FIELD, "ts@ts.ts");
+        RegistrationFormPage.clickOnElement(RegistrationFormPage.JAVA_QUESTION_CATEGORY);
+        RegistrationFormPage.clickOnElement(RegistrationFormPage.RESET_BUTTON);
+
+        //Assert.assertTrue(false);
     }
 }
