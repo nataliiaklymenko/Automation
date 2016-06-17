@@ -8,7 +8,6 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import java.lang.reflect.Method;
@@ -30,8 +29,9 @@ public class BaseTest {
         driver = webDriver;
     }
 
-    @BeforeClass
-    public void WebDriverInit() {
+    @BeforeMethod
+    public void WebDriverInit(Method method) {
+        Log.startTestCase(method.getName());
         String driverPath = System.getProperty("user.dir");
         switch (browserType) {
             case IE:
@@ -62,20 +62,11 @@ public class BaseTest {
         }
     }
 
-    @AfterClass
-    public static void QuitDriver() {
+    @AfterMethod
+    public static void QuitDriver(Method method) {
+        Log.endTestCase(method.getName());
         if (driver == null) return;
         driver.quit();
         setDriver(null);
-    }
-
-    @BeforeMethod
-    public static void startCase(Method method){
-        Log.startTestCase(method.getName());
-    }
-
-    @AfterMethod
-    public static void endCase(Method method){
-        Log.endTestCase(method.getName());
     }
 }

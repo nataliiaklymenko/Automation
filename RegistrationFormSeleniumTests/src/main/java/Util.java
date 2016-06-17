@@ -17,11 +17,10 @@ class Util {
     public static final int DEFAULT_TIMEOUT = 4000;
 
     private static Logger logger = Logger.getLogger("Util");
-    private static WebDriver driver = BaseTest.getDriver();
     static String baseUrl = "http://localhost:83/registrationform/";
 
     static void goToPage(String pageUrl) {
-        driver.get(pageUrl);
+        BaseTest.getDriver().get(pageUrl);
     }
 
     static boolean verifyCurrentPageTitle(String expectedPageTitle, String actualPageTitle) {
@@ -29,16 +28,16 @@ class Util {
     }
 
     public static WebElement waitForElement(String xpath, int timeOut) {
-        WebDriverWait waiting = new WebDriverWait(driver, timeOut);
+        WebDriverWait waiting = new WebDriverWait(BaseTest.getDriver(), timeOut);
         return waiting.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
     }
 
     public static void closeBrowser() {
-        driver.close();
+        BaseTest.getDriver().close();
     }
 
     public void stopDriver() {
-        driver.quit();
+        BaseTest.getDriver().quit();
     }
 
     public static String getProperty(String propertyName) {
