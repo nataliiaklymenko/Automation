@@ -1,35 +1,29 @@
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 /**
  * Created by nako on 29/04/2016.
  */
 abstract class PageFactory {
 
-    static void inputValueIntoField(String elementPath, String valueForInput) {
-        Util.waitForElement(elementPath, Util.DEFAULT_TIMEOUT).sendKeys(valueForInput);
+    public static void openBrowser(String browser, String name) {
+        Util.openBrowser(name);
     }
 
-    static void clickOnElement(String element){
-        try{
-           // Log.info("Clicking on Webelement "+ object);
-            Util.waitForElement(element, Util.DEFAULT_TIMEOUT).click();
-        }catch(Exception e){
-            //Log.error("Not able to click --- " + e.getMessage());
-            //DriverScript.bResult = false;
-        }
+    public static void goToPage(String object, String url) {
+        Util.goToPage(url);
     }
 
-    static Properties getProperties(String pathToPropertiesFile) {
-        FileInputStream fileStream;
-        Properties pageObjects = new Properties();
-        try {
-            fileStream = new FileInputStream(pathToPropertiesFile);
-            pageObjects.load(fileStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return pageObjects;
+    public static void closeBrowser() {
+        Util.closeBrowser();
+    }
+
+    public static void inputValueIntoField(String elementPath, String valueForInput) {
+        Util.waitForElement(elementPath).sendKeys(valueForInput);
+    }
+
+    public static void clickOnElement(String element, String data) {
+        Util.waitForElement(element).click();
+    }
+
+    static void verifyPageTitle(String expectedTitle, String actualTitle) {
+        BaseTest.bResult = Util.verifyCurrentPageTitle(expectedTitle, actualTitle);
     }
 }

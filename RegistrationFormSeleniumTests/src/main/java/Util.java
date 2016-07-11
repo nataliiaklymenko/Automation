@@ -1,13 +1,12 @@
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -15,11 +14,14 @@ import java.util.Properties;
  */
 class Util {
     public static final int DEFAULT_TIMEOUT = 4000;
-
     private static Logger logger = Logger.getLogger("Util");
-    static String baseUrl = "http://localhost:83/registrationform/";
 
-    static void goToPage(String pageUrl) {
+    public static void openBrowser(String name) {
+        BaseTest.browserType = BaseTest.Browsers.valueOf(name);
+        BaseTest.WebDriverInit();
+    }
+
+    public static void goToPage(String pageUrl) {
         BaseTest.getDriver().get(pageUrl);
     }
 
@@ -27,9 +29,14 @@ class Util {
         return (actualPageTitle.contentEquals(expectedPageTitle));
     }
 
-    public static WebElement waitForElement(String xpath, int timeOut) {
-        WebDriverWait waiting = new WebDriverWait(BaseTest.getDriver(), timeOut);
-        return waiting.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+    public static WebElement waitForElement(String object) {
+        WebDriverWait waiting = new WebDriverWait(BaseTest.getDriver(), DEFAULT_TIMEOUT);
+        return waiting.until(ExpectedConditions.presenceOfElementLocated(By.xpath(BaseTest.OR.getProperty(object))));
+    }
+
+    public static WebElement waitForVisibleElement(WebElement element) {
+        WebDriverWait waiting = new WebDriverWait(BaseTest.getDriver(), DEFAULT_TIMEOUT);
+        return waiting.until(ExpectedConditions.visibilityOf(element));
     }
 
     public static void closeBrowser() {
@@ -50,5 +57,17 @@ class Util {
             logger.error(ex.getMessage());
         }
         return propertyValue;
+    }
+
+    public static Properties getProperties(String pathToPropertiesFile) {
+        FileInputStream fileStream;
+        Properties pageObjects = new Properties();
+        try {
+            fileStream = new FileInputStream(pathToPropertiesFile);
+            pageObjects.load(fileStream);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+        return pageObjects;
     }
 }
